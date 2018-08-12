@@ -7,12 +7,9 @@ module IsoDoc
     # schema encapsulation of the document for validation
 
     class WordConvert < IsoDoc::WordConvert
-      def html_doc_path(file)
-        File.join(File.dirname(__FILE__), File.join("html", file))
-      end
-
       def initialize(options)
         super
+        @libdir = File.dirname(__FILE__)
         @wordstylesheet = generate_css(html_doc_path("wordstyle.scss"), false, default_fonts(options))
         @standardstylesheet = generate_css(html_doc_path("sample.scss"), false, default_fonts(options))
         @header = html_doc_path("header.html")

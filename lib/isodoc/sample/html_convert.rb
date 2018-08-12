@@ -8,12 +8,9 @@ module IsoDoc
     # schema encapsulation of the document for validation
     #
     class HtmlConvert < IsoDoc::HtmlConvert
-      def html_doc_path(file)
-        File.join(File.dirname(__FILE__), File.join("html", file))
-      end
-
       def initialize(options)
         super
+        @libdir = File.dirname(__FILE__)
         @htmlstylesheet = generate_css(html_doc_path("htmlstyle.scss"), true, default_fonts(options))
         @htmlcoverpage = html_doc_path("html_sample_titlepage.html")
         @htmlintropage = html_doc_path("html_sample_intro.html")

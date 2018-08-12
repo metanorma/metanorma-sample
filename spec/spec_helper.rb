@@ -73,7 +73,7 @@ BLANK_HDR = <<~"HDR"
              <name>Acme</name>
            </organization>
          </contributor>
-
+        <language>en</language>
          <script>Latn</script>
 
          <copyright>

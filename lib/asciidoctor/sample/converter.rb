@@ -163,7 +163,7 @@ module Asciidoctor
           scope: node.attr("scope"),
           htmlstylesheet: node.attr("htmlstylesheet"),
           htmlcoverpage: node.attr("htmlcoverpage"),
-          htmlintropage: node.attr("intropage"),
+          htmlintropage: node.attr("htmlintropage"),
           scripts: node.attr("scripts"),
         )
       end
@@ -182,6 +182,8 @@ module Asciidoctor
           header: node.attr("header"),
           wordcoverpage: node.attr("wordcoverpage"),
           wordintropage: node.attr("wordintropage"),
+          ulstyle: node.attr("ulstyle"),
+          olstyle: node.attr("olstyle"),
         )
       end
 

@@ -7,25 +7,27 @@ module IsoDoc
     # document schema encapsulation of the document for validation
     class PdfConvert < IsoDoc::PdfConvert
       def initialize(options)
-        super
         @libdir = File.dirname(__FILE__)
-        @htmlstylesheet = generate_css(html_doc_path("htmlstyle.scss"), true, default_fonts(options))
-        @htmlcoverpage = html_doc_path("html_sample_titlepage.html")
-        @htmlintropage = html_doc_path("html_sample_intro.html")
-        @scripts = html_doc_path("scripts.html")
+        super
         system "cp #{html_doc_path('logo.jpg')}  logo.jpg"
         @files_to_delete << "logo.jpg"
       end
 
       def default_fonts(options)
-        b = options[:bodyfont] ||
-          (options[:script] == "Hans" ? '"SimSun",serif' :
-           '"Overpass",sans-serif')
-        h = options[:headerfont] ||
-          (options[:script] == "Hans" ? '"SimHei",sans-serif' :
-           '"Overpass",sans-serif')
-        m = options[:monospacefont] || '"Space Mono",monospace'
-        "$bodyfont: #{b};\n$headerfont: #{h};\n$monospacefont: #{m};\n"
+        {
+          bodyfont: (options[:script] == "Hans" ? '"SimSun",serif' : '"Overpass",sans-serif'),
+          headerfont: (options[:script] == "Hans" ? '"SimHei",sans-serif' : '"Overpass",sans-serif'),
+          monospacefont: '"Space Mono",monospace'
+        }
+      end
+
+      def default_file_locations(_options)
+        {
+          htmlstylesheet: html_doc_path("htmlstyle.scss"),
+          htmlcoverpage: html_doc_path("html_sample_titlepage.html"),
+          htmlintropage: html_doc_path("html_sample_intro.html"),
+          scripts: html_doc_path("scripts.html"),
+        }
       end
 
       def metadata_init(lang, script, labels)

@@ -8,28 +8,31 @@ module IsoDoc
 
     class WordConvert < IsoDoc::WordConvert
       def initialize(options)
-        super
         @libdir = File.dirname(__FILE__)
-        @wordstylesheet = generate_css(html_doc_path("wordstyle.scss"), false, default_fonts(options))
-        @standardstylesheet = generate_css(html_doc_path("sample.scss"), false, default_fonts(options))
-        @header = html_doc_path("header.html")
-        @wordcoverpage = html_doc_path("word_sample_titlepage.html")
-        @wordintropage = html_doc_path("word_sample_intro.html")
+        super
         @ulstyle = "l3"
         @olstyle = "l2"
         system "cp #{html_doc_path('logo.jpg')}  logo.jpg"
       end
 
       def default_fonts(options)
-        b = options[:bodyfont] ||
-          (options[:script] == "Hans" ? '"SimSun",serif' :
-           '"Arial",sans-serif')
-        h = options[:headerfont] ||
-          (options[:script] == "Hans" ? '"SimHei",sans-serif' :
-           '"Arial",sans-serif')
-        m = options[:monospacefont] || '"Courier New",monospace'
-        "$bodyfont: #{b};\n$headerfont: #{h};\n$monospacefont: #{m};\n"
+        {
+          bodyfont: (options[:script] == "Hans" ? '"SimSun",serif' : '"Arial",sans-serif'),
+          headerfont: (options[:script] == "Hans" ? '"SimHei",sans-serif' : '"Arial",sans-serif'),
+          monospacefont: '"Courier New",monospace'
+        }
       end
+
+      def default_file_locations(_options)
+        {
+          wordstylesheet: html_doc_path("wordstyle.scss"),
+          standardstylesheet: html_doc_path("sample.scss"),
+          header: html_doc_path("header.html"),
+          wordcoverpage: html_doc_path("word_sample_titlepage.html"),
+          wordintropage: html_doc_path("word_sample_intro.html"),
+        }
+      end
+
 
       def metadata_init(lang, script, labels)
         @meta = Metadata.new(lang, script, labels)

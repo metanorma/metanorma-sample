@@ -1,6 +1,6 @@
 require "asciidoctor"
 require "asciidoctor/sample"
-require "asciidoctor/iso/converter"
+require "asciidoctor/standoc/converter"
 require "isodoc/sample/html_convert"
 require "isodoc/sample/word_convert"
 
@@ -10,7 +10,7 @@ module Asciidoctor
     # A {Converter} implementation that generates RSD output, and a document
     # schema encapsulation of the document for validation
     #
-    class Converter < ISO::Converter
+    class Converter < Standoc::Converter
 
       register_for "sample"
 
@@ -153,38 +153,11 @@ module Asciidoctor
       end
 
       def html_converter(node)
-        IsoDoc::Sample::HtmlConvert.new(
-          script: node.attr("script"),
-          bodyfont: node.attr("body-font"),
-          headerfont: node.attr("header-font"),
-          monospacefont: node.attr("monospace-font"),
-          titlefont: node.attr("title-font"),
-          i18nyaml: node.attr("i18nyaml"),
-          scope: node.attr("scope"),
-          htmlstylesheet: node.attr("htmlstylesheet"),
-          htmlcoverpage: node.attr("htmlcoverpage"),
-          htmlintropage: node.attr("htmlintropage"),
-          scripts: node.attr("scripts"),
-        )
+        IsoDoc::Sample::HtmlConvert.new(html_extract_attributes(node))
       end
 
       def word_converter(node)
-        IsoDoc::Sample::WordConvert.new(
-          script: node.attr("script"),
-          bodyfont: node.attr("body-font"),
-          headerfont: node.attr("header-font"),
-          monospacefont: node.attr("monospace-font"),
-          titlefont: node.attr("title-font"),
-          i18nyaml: node.attr("i18nyaml"),
-          scope: node.attr("scope"),
-          wordstylesheet: node.attr("wordstylesheet"),
-          standardstylesheet: node.attr("standardstylesheet"),
-          header: node.attr("header"),
-          wordcoverpage: node.attr("wordcoverpage"),
-          wordintropage: node.attr("wordintropage"),
-          ulstyle: node.attr("ulstyle"),
-          olstyle: node.attr("olstyle"),
-        )
+        IsoDoc::Sample::WordConvert.new(doc_extract_attributes(node))
       end
 
       def inline_quoted(node)

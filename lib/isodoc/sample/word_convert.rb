@@ -35,7 +35,6 @@ module IsoDoc
         }
       end
 
-
       def metadata_init(lang, script, labels)
         @meta = Metadata.new(lang, script, labels)
       end

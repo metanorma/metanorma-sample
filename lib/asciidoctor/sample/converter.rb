@@ -96,7 +96,9 @@ module Asciidoctor
 
       def doctype(node)
         d = node.attr("doctype")
-        unless %w{policy-and-procedures best-practices supporting-document report legal directives proposal standard}.include? d
+        unless %w{policy-and-procedures best-practices 
+          supporting-document report legal directives proposal 
+          standard}.include? d
           warn "#{d} is not a legal document type: reverting to 'standard'"
           d = "standard"
         end

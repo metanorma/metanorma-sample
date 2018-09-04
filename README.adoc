@@ -1,4 +1,4 @@
-= asciidoctor-metanorma_sample: Sample Asciidoctor processor for Metanorma documents
+= metanorma-sample: Sample Asciidoctor processor for Metanorma documents
 
 ////
 image:https://img.shields.io/gem/v/asciidoctor-metanorma_sample.svg["Gem Version", link="https://rubygems.org/gems/asciidoctor-metanorma_sample"]

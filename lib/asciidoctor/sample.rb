@@ -1,5 +1,3 @@
-require "asciidoctor/sample/version"
-
 module Asciidoctor
   module Sample
 

@@ -60,6 +60,9 @@ RSpec.describe Asciidoctor::Sample do
       :committee: TC
       :committee-number: 1
       :committee-type: A
+      :committee_2: TC1
+      :committee-number_2: 11
+      :committee-type_2: A1
       :subcommittee: SC
       :subcommittee-number: 2
       :subcommittee-type: B
@@ -106,6 +109,7 @@ RSpec.describe Asciidoctor::Sample do
   </copyright>
   <editorialgroup>
     <committee type="A">TC</committee>
+    <committee type="A1">TC1</committee>
   </editorialgroup>
   <security>Client Confidential</security>
 </bibdata><version>

@@ -516,7 +516,7 @@ p.document-stage {
     margin-left: -1.2em;
   }
 
-  ul li p {
+  ul li p:first-child {
     display: inline;
   }
 

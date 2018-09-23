@@ -3,6 +3,7 @@ require "asciidoctor/sample"
 require "asciidoctor/standoc/converter"
 require "isodoc/sample/html_convert"
 require "isodoc/sample/word_convert"
+require "fileutils"
 
 module Asciidoctor
   module Sample
@@ -130,7 +131,7 @@ module Asciidoctor
           word_converter(node).convert filename unless node.attr("nodoc")
           pdf_convert(filename.sub(/\.xml$/, "")) unless node.attr("nodoc")
         end
-        @files_to_delete.each { |f| system "rm #{f}" }
+        @files_to_delete.each { |f| FileUtils.rm f }
         ret
       end
 

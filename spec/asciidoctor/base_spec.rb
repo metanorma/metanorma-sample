@@ -1,4 +1,5 @@
 require "spec_helper"
+require "fileutils"
 
 RSpec.describe Asciidoctor::Sample do
   it "has a version number" do
@@ -6,7 +7,8 @@ RSpec.describe Asciidoctor::Sample do
   end
 
   it "generates output for the Rice document" do
-    system "cd spec/examples; rm -f rfc6350.doc; rm -f rfc6350.html; rm -d rfc6350.pdf;asciidoctor --trace -b sample -r 'asciidoctor-sample' rfc6350.adoc; cd ../.."
+    FileUtils.rm_f %w(spec/examples/rfc6350.doc spec/examples/rfc6350.html spec/examples/rfc6350.pdf)
+    system "cd spec/examples; asciidoctor --trace -b sample -r 'asciidoctor-sample' rfc6350.adoc; cd ../.."
     expect(File.exist?("spec/examples/rfc6350.doc")).to be true
     expect(File.exist?("spec/examples/rfc6350.html")).to be true
     expect(File.exist?("spec/examples/rfc6350.pdf")).to be true
@@ -40,7 +42,7 @@ RSpec.describe Asciidoctor::Sample do
 </sample-standard>
     OUTPUT
 
-    system "rm -f test.html"
+    FileUtils.rm_f "test.html"
     expect(Asciidoctor.convert(input, backend: :sample, header_footer: true)).to be_equivalent_to output
     expect(File.exist?("test.html")).to be true
   end
@@ -184,7 +186,7 @@ RSpec.describe Asciidoctor::Sample do
       :novalid:
     INPUT
 
-    system "rm -f test.html"
+    FileUtils.rm_f "test.html"
     Asciidoctor.convert(input, backend: :sample, header_footer: true)
 
     html = File.read("test.html", encoding: "utf-8")
@@ -202,7 +204,7 @@ RSpec.describe Asciidoctor::Sample do
       :script: Hans
     INPUT
 
-    system "rm -f test.html"
+    FileUtils.rm_f "test.html"
     Asciidoctor.convert(input, backend: :sample, header_footer: true)
 
     html = File.read("test.html", encoding: "utf-8")
@@ -223,7 +225,7 @@ RSpec.describe Asciidoctor::Sample do
       :monospace-font: Andale Mono
     INPUT
 
-    system "rm -f test.html"
+    FileUtils.rm_f "test.html"
     Asciidoctor.convert(input, backend: :sample, header_footer: true)
 
     html = File.read("test.html", encoding: "utf-8")

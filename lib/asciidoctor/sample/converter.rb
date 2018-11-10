@@ -46,20 +46,21 @@ module Asciidoctor
         end
       end
 
-      def title(node, xml)
-        ["en"].each do |lang|
-          xml.title **{ language: lang, format: "plain" } do |t|
-            t << asciidoc_sub(node.attr("title"))
-          end
-        end
-      end
-
       def metadata_status(node, xml)
         xml.status(**{ format: "plain" }) { |s| s << node.attr("status") }
       end
 
       def metadata_id(node, xml)
-        xml.docidentifier { |i| i << node.attr("docnumber") }
+        docstatus = node.attr("status")
+        dn = node.attr("docnumber")
+        if docstatus
+          abbr = IsoDoc::Sample::Metadata.new("en", "Latn", {}).
+            status_abbr(docstatus)
+          dn = "#{dn}(#{abbr})" unless abbr.empty?
+        end
+        node.attr("copyright-year") and dn += ":#{node.attr("copyright-year")}"
+        xml.docidentifier dn, **{type: "acme"}
+        xml.docnumber { |i| i << node.attr("docnumber") }
       end
 
       def metadata_copyright(node, xml)

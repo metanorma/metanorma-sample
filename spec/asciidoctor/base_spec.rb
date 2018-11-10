@@ -86,8 +86,9 @@ RSpec.describe Asciidoctor::Sample do
     <?xml version="1.0" encoding="UTF-8"?>
 <sample-standard xmlns="https://open.ribose.com/standards/example">
 <bibdata type="standard">
-  <title language="en" format="plain">Main Title</title>
-  <docidentifier>1000</docidentifier>
+<title language="en" format="text/plain">Main Title</title>
+<docidentifier type="acme">1000(wd):2001</docidentifier>
+<docnumber>1000</docnumber>
   <contributor>
     <role type="author"/>
     <organization>
@@ -126,6 +127,181 @@ RSpec.describe Asciidoctor::Sample do
     OUTPUT
 
     expect(Asciidoctor.convert(input, backend: :sample, header_footer: true)).to be_equivalent_to output
+  end
+
+      it "processes committee-draft" do
+    expect(Asciidoctor.convert(<<~"INPUT", backend: :sample, header_footer: true)).to be_equivalent_to <<~"OUTPUT"
+      = Document title
+      Author
+      :docfile: test.adoc
+      :nodoc:
+      :novalid:
+      :docnumber: 1000
+      :doctype: standard
+      :edition: 2
+      :revdate: 2000-01-01
+      :draft: 3.4
+      :status: committee-draft
+      :iteration: 3
+      :language: en
+      :title: Main Title
+    INPUT
+        <sample-standard xmlns="https://open.ribose.com/standards/example">
+<bibdata type="standard">
+  <title language="en" format="text/plain">Main Title</title>
+  <docidentifier type="acme">1000(cd)</docidentifier>
+  <docnumber>1000</docnumber>
+  <contributor>
+    <role type="author"/>
+    <organization>
+      <name>Acme</name>
+    </organization>
+  </contributor>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <name>Acme</name>
+    </organization>
+  </contributor>
+  <language>en</language>
+  <script>Latn</script>
+  <status format="plain">committee-draft</status>
+  <copyright>
+    <from>#{Date.today.year}</from>
+    <owner>
+      <organization>
+        <name>Acme</name>
+      </organization>
+    </owner>
+  </copyright>
+  <editorialgroup>
+    <committee/>
+  </editorialgroup>
+</bibdata><version>
+  <edition>2</edition>
+  <revision-date>2000-01-01</revision-date>
+  <draft>3.4</draft>
+</version>
+<sections/>
+</sample-standard>
+        OUTPUT
+    end
+
+              it "processes draft-standard" do
+    expect(Asciidoctor.convert(<<~"INPUT", backend: :sample, header_footer: true)).to be_equivalent_to <<~"OUTPUT"
+      = Document title
+      Author
+      :docfile: test.adoc
+      :nodoc:
+      :novalid:
+      :docnumber: 1000
+      :doctype: standard
+      :edition: 2
+      :revdate: 2000-01-01
+      :draft: 3.4
+      :status: draft-standard
+      :iteration: 3
+      :language: en
+      :title: Main Title
+    INPUT
+        <sample-standard xmlns="https://open.ribose.com/standards/example">
+<bibdata type="standard">
+  <title language="en" format="text/plain">Main Title</title>
+  <docidentifier type="acme">1000(d)</docidentifier>
+  <docnumber>1000</docnumber>
+  <contributor>
+    <role type="author"/>
+    <organization>
+      <name>Acme</name>
+    </organization>
+  </contributor>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <name>Acme</name>
+    </organization>
+  </contributor>
+  <language>en</language>
+  <script>Latn</script>
+  <status format="plain">draft-standard</status>
+  <copyright>
+    <from>#{Date.today.year}</from>
+    <owner>
+      <organization>
+        <name>Acme</name>
+      </organization>
+    </owner>
+  </copyright>
+  <editorialgroup>
+    <committee/>
+  </editorialgroup>
+</bibdata><version>
+  <edition>2</edition>
+  <revision-date>2000-01-01</revision-date>
+  <draft>3.4</draft>
+</version>
+<sections/>
+</sample-standard>
+OUTPUT
+        end
+
+                  it "ignores unrecognised status" do
+        expect(Asciidoctor.convert(<<~"INPUT", backend: :sample, header_footer: true)).to be_equivalent_to <<~'OUTPUT'
+      = Document title
+      Author
+      :docfile: test.adoc
+      :nodoc:
+      :novalid:
+      :docnumber: 1000
+      :doctype: standard
+      :edition: 2
+      :revdate: 2000-01-01
+      :draft: 3.4
+      :copyright-year: 2001
+      :status: standard
+      :iteration: 3
+      :language: en
+      :title: Main Title
+    INPUT
+    <sample-standard xmlns="https://open.ribose.com/standards/example">
+<bibdata type="standard">
+  <title language="en" format="text/plain">Main Title</title>
+  <docidentifier type="acme">1000:2001</docidentifier>
+  <docnumber>1000</docnumber>
+  <contributor>
+    <role type="author"/>
+    <organization>
+      <name>Acme</name>
+    </organization>
+  </contributor>
+  <contributor>
+    <role type="publisher"/>
+    <organization>
+      <name>Acme</name>
+    </organization>
+  </contributor>
+  <language>en</language>
+  <script>Latn</script>
+  <status format="plain">standard</status>
+  <copyright>
+    <from>2001</from>
+    <owner>
+      <organization>
+        <name>Acme</name>
+      </organization>
+    </owner>
+  </copyright>
+  <editorialgroup>
+    <committee/>
+  </editorialgroup>
+</bibdata><version>
+  <edition>2</edition>
+  <revision-date>2000-01-01</revision-date>
+  <draft>3.4</draft>
+</version>
+<sections/>
+</sample-standard>
+    OUTPUT
   end
 
   it "processes figures" do

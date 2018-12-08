@@ -113,13 +113,6 @@ module Asciidoctor
         d
       end
 
-      def pdf_convert(filename)
-        url = "#{Dir.pwd}/#{filename}.html"
-        pdfjs = File.join(File.dirname(__FILE__), 'pdf.js')
-        system "export NODE_PATH=$(npm root --quiet -g);
-                node #{pdfjs} file://#{url} #{filename}.pdf"
-      end
-
       def document(node)
         init(node)
         ret1 = makexml(node)
@@ -130,7 +123,7 @@ module Asciidoctor
           File.open(filename, "w") { |f| f.write(ret) }
           html_converter(node).convert filename unless node.attr("nodoc")
           word_converter(node).convert filename unless node.attr("nodoc")
-          pdf_convert(filename.sub(/\.xml$/, "")) unless node.attr("nodoc")
+          pdf_converter(node).convert filename unless node.attr("nodoc")
         end
         @files_to_delete.each { |f| FileUtils.rm f }
         ret
@@ -140,15 +133,6 @@ module Asciidoctor
         content_validate(doc)
         schema_validate(formattedstr_strip(doc.dup),
                         File.join(File.dirname(__FILE__), "sample.rng"))
-      end
-
-      def literal(node)
-        noko do |xml|
-          xml.figure **id_attr(node) do |f|
-            figure_title(node, f)
-            f.pre node.lines.join("\n")
-          end
-        end
       end
 
       def sections_cleanup(x)
@@ -170,27 +154,8 @@ module Asciidoctor
         IsoDoc::Sample::WordConvert.new(doc_extract_attributes(node))
       end
 
-      def inline_quoted(node)
-        noko do |xml|
-          case node.type
-          when :emphasis then xml.em node.text
-          when :strong then xml.strong node.text
-          when :monospaced then xml.tt node.text
-          when :double then xml << "\"#{node.text}\""
-          when :single then xml << "'#{node.text}'"
-          when :superscript then xml.sup node.text
-          when :subscript then xml.sub node.text
-          when :asciimath then stem_parse(node.text, xml)
-          else
-            case node.role
-            when "strike" then xml.strike node.text
-            when "smallcap" then xml.smallcap node.text
-            when "keyword" then xml.keyword node.text
-            else
-              xml << node.text
-            end
-          end
-        end.join
+      def pdf_converter(node)
+        IsoDoc::Sample::PdfConvert.new(html_extract_attributes(node))
       end
     end
   end

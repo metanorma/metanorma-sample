@@ -1,13 +1,7 @@
 = metanorma-sample: Sample Asciidoctor processor for Metanorma documents
 
-////
-image:https://img.shields.io/gem/v/asciidoctor-metanorma_sample.svg["Gem Version", link="https://rubygems.org/gems/asciidoctor-metanorma_sample"]
-image:https://img.shields.io/travis/riboseinc/asciidoctor-metanorma_sample/master.svg["Build Status", link="https://travis-ci.com/riboseinc/asciidoctor-metanorma_sample"]
-image:https://codeclimate.com/github/riboseinc/asciidoctor-metanorma_sample/badges/gpa.svg["Code Climate", link="https://codeclimate.com/github/riboseinc/asciidoctor-metanorma_sample"]
-////
-
 == Functionality
 
-This is an example of a https://github.com/riboseinc/metanorma[Metanorma] gem for processing input formats (Asciidoctor) and generating output formats (Word, HTML, PDF). 
-It has been created as an exemplar for generating new instances of Metanorma gems, as illustrated in https://github.com/riboseinc/asciidoctor-iso/wiki/Gem-Customisation-Guide
+This is an example of a https://github.com/metanorma/metanorma[Metanorma] gem for processing input formats (Asciidoctor) and generating output formats (Word, HTML, PDF). 
+It has been created as an exemplar for generating new instances of Metanorma gems, as illustrated in https://github.com/metanorma/metanorma-iso/wiki/Gem-Customisation-Guide
 

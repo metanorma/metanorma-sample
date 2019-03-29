@@ -1,5 +1,8 @@
 = metanorma-sample: Sample Asciidoctor processor for Metanorma documents
 
+image:https://img.shields.io/travis/metanorma/metanorma-sample/master.svg["Build Status", link="https://travis-ci.org/metanorma/metanorma-sample"]
+image:https://ci.appveyor.com/api/projects/status/6ys17sr0buc7p3hi?svg=true["Appveyor Build Status", link="https://ci.appveyor.com/project/ribose/metanorma-sample"]
+
 == Functionality
 
 This is an example of a https://github.com/metanorma/metanorma[Metanorma] gem for processing input formats (Asciidoctor) and generating output formats (Word, HTML, PDF). 

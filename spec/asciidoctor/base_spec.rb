@@ -120,11 +120,14 @@ RSpec.describe Asciidoctor::Sample do
       </organization>
     </owner>
   </copyright>
+  <ext>
+  <doctype>standard</doctype>
   <editorialgroup>
     <committee type="A">TC</committee>
     <committee type="A1">TC1</committee>
   </editorialgroup>
   <security>Client Confidential</security>
+  </ext>
 </bibdata>
 <sections/>
 </sample-standard>
@@ -186,9 +189,9 @@ RSpec.describe Asciidoctor::Sample do
       </organization>
     </owner>
   </copyright>
-  <editorialgroup>
-    <committee/>
-  </editorialgroup>
+  <ext>
+  <doctype>standard</doctype>
+  </ext>
 </bibdata>
 <sections/>
 </sample-standard>
@@ -247,9 +250,9 @@ RSpec.describe Asciidoctor::Sample do
       </organization>
     </owner>
   </copyright>
-  <editorialgroup>
-    <committee/>
-  </editorialgroup>
+  <ext>
+    <doctype>standard</doctype>
+  </ext>
 </bibdata>
 <sections/>
 </sample-standard>
@@ -310,9 +313,9 @@ OUTPUT
       </organization>
     </owner>
   </copyright>
-  <editorialgroup>
-    <committee/>
-  </editorialgroup>
+  <ext>
+    <doctype>standard</doctype>
+  </ext>
 </bibdata>
 <sections/>
 </sample-standard>

@@ -8,23 +8,9 @@ module IsoDoc
         super
       end
 
-      def title(isoxml, _out)
-        main = isoxml&.at(ns("//bibdata/title[@language='en']"))&.text
-        set(:doctitle, main)
-      end
-
-      def subtitle(_isoxml, _out)
-        nil
-      end
-
       def author(isoxml, _out)
         tc = isoxml.at(ns("//bibdata/ext/editorialgroup/committee"))
         set(:tc, tc.text) if tc
-      end
-
-      def docid(isoxml, _out)
-        docnumber = isoxml.at(ns("//bibdata/docidentifier"))
-        set(:docnumber, docnumber&.text)
       end
 
       def status_abbr(status)

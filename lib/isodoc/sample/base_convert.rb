@@ -4,7 +4,7 @@ require "fileutils"
 
 module IsoDoc
   module Sample
-  	module BaseConvert
+    module BaseConvert
       def convert1(docxml, filename, dir)
         FileUtils.cp html_doc_path('logo.jpg'), File.join(@localdir, "logo.jpg")
         @files_to_delete << File.join(@localdir, "logo.jpg")
@@ -14,7 +14,7 @@ module IsoDoc
       def metadata_init(lang, script, labels)
         @meta = Metadata.new(lang, script, labels)
       end
-      
+
       def info(isoxml, out)
         @meta.security isoxml, out
         super
@@ -27,14 +27,6 @@ module IsoDoc
           t.b do |b|
             name&.children&.each { |c2| parse(c2, b) }
           end
-        end
-      end
-
-      def term_defs_boilerplate(div, source, term, preface)
-        if source.empty? && term.nil?
-          div << @no_terms_boilerplate
-        else
-          div << term_defs_boilerplate_cont(source, term)
         end
       end
 
@@ -60,6 +52,6 @@ module IsoDoc
         end
         docxml
       end
-  	end
+    end
   end
 end

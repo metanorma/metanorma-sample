@@ -49,12 +49,12 @@ RSpec.describe IsoDoc::Sample do
 </sample-standard>
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     {:accesseddate=>"XXX", :circulateddate=>"XXX", :confirmeddate=>"XXX", :copieddate=>"XXX", :createddate=>"XXX", :docnumber=>"1000(wd)", :doctitle=>"Main Title", :doctype=>"Standard", :docyear=>"2001", :draft=>"3.4", :draftinfo=>" (draft 3.4, 2000-01-01)", :edition=>"2", :implementeddate=>"XXX", :issueddate=>"XXX", :obsoleteddate=>"XXX", :publisheddate=>"XXX", :receiveddate=>"XXX", :revdate=>"2000-01-01", :revdate_monthyear=>"January 2000", :security=>"Client Confidential", :stage=>"Working Draft", :tc=>"TC", :transmitteddate=>"XXX", :unchangeddate=>"XXX", :unpublished=>true, :updateddate=>"XXX"}
     OUTPUT
 
     docxml, filename, dir = csdc.convert_init(input, "test", true)
-    expect(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s)).to be_equivalent_to output
+    expect(xmlpp(htmlencode(Hash[csdc.info(docxml, nil).sort].to_s))).to be_equivalent_to output
   end
 
   it "processes pre" do
@@ -66,7 +66,7 @@ RSpec.describe IsoDoc::Sample do
 </sample-standard>
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     #{HTML_HDR}
              <br/>
              <div>
@@ -78,12 +78,12 @@ RSpec.describe IsoDoc::Sample do
          </body>
     OUTPUT
 
-    expect(
+    expect(xmlpp(
       IsoDoc::Sample::HtmlConvert.new({}).
       convert("test", input, true).
       gsub(%r{^.*<body}m, "<body").
       gsub(%r{</body>.*}m, "</body>")
-    ).to be_equivalent_to output
+    )).to be_equivalent_to output
   end
 
   it "processes keyword" do
@@ -95,7 +95,7 @@ RSpec.describe IsoDoc::Sample do
 </sample-standard>
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
         #{HTML_HDR}
              <br/>
              <div>
@@ -107,12 +107,12 @@ RSpec.describe IsoDoc::Sample do
          </body>
     OUTPUT
 
-    expect(
+    expect(xmlpp(
       IsoDoc::Sample::HtmlConvert.new({}).
       convert("test", input, true).
       gsub(%r{^.*<body}m, "<body").
       gsub(%r{</body>.*}m, "</body>")
-    ).to be_equivalent_to output
+    )).to be_equivalent_to output
   end
 
   it "processes section names" do
@@ -178,7 +178,7 @@ RSpec.describe IsoDoc::Sample do
        </sample-standard>
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
         #{HTML_HDR}
              <br/>
              <div>
@@ -248,11 +248,11 @@ RSpec.describe IsoDoc::Sample do
          </body>
     OUTPUT
 
-    expect(
+    expect(xmlpp(
       IsoDoc::Sample::HtmlConvert.new({}).convert("test", input, true).
       gsub(%r{^.*<body}m, "<body").
       gsub(%r{</body>.*}m, "</body>")
-    ).to be_equivalent_to output
+    )).to be_equivalent_to output
   end
 
   it "injects JS into blank html" do
@@ -264,13 +264,13 @@ RSpec.describe IsoDoc::Sample do
       :novalid:
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     #{BLANK_HDR}
 <sections/>
 </sample-standard>
     OUTPUT
 
-    expect(Asciidoctor.convert(input, backend: :sample, header_footer: true)).to be_equivalent_to output
+    expect(xmlpp(Asciidoctor.convert(input, backend: :sample, header_footer: true))).to be_equivalent_to output
     html = File.read("test.html", encoding: "utf-8")
     expect(html).to match(%r{jquery\.min\.js})
     expect(html).to match(%r{Overpass})

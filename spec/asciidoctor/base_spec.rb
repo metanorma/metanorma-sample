@@ -11,9 +11,9 @@ RSpec.describe Asciidoctor::Sample do
   #  FileUtils.cd "spec/examples"
   #  Asciidoctor.convert_file "rfc6350.adoc", {:attributes=>{"backend"=>"sample"}, :safe=>0, :header_footer=>true, :requires=>["metanorma-sample"], :failure_level=>4, :mkdirs=>true, :to_file=>nil}
   #  FileUtils.cd "../.."
-  #  expect(File.exist?("spec/examples/rfc6350.doc")).to be true
-  #  expect(File.exist?("spec/examples/rfc6350.html")).to be true
-  #  expect(File.exist?("spec/examples/rfc6350.pdf")).to be true
+  #  expect(xmlpp(File.exist?("spec/examples/rfc6350.doc"))).to be true
+  #  expect(xmlpp(File.exist?("spec/examples/rfc6350.html"))).to be true
+  #  expect(xmlpp(File.exist?("spec/examples/rfc6350.pdf"))).to be true
   #end
 
   it "processes a blank document" do
@@ -21,13 +21,13 @@ RSpec.describe Asciidoctor::Sample do
     #{ASCIIDOC_BLANK_HDR}
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     #{BLANK_HDR}
 <sections/>
 </sample-standard>
     OUTPUT
 
-    expect(Asciidoctor.convert(input, backend: :sample, header_footer: true)).to be_equivalent_to output
+    expect(xmlpp(Asciidoctor.convert(input, backend: :sample, header_footer: true))).to be_equivalent_to output
   end
 
   it "converts a blank document" do
@@ -38,14 +38,14 @@ RSpec.describe Asciidoctor::Sample do
       :novalid:
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     #{BLANK_HDR}
 <sections/>
 </sample-standard>
     OUTPUT
 
     FileUtils.rm_f "test.html"
-    expect(Asciidoctor.convert(input, backend: :sample, header_footer: true)).to be_equivalent_to output
+    expect(xmlpp(Asciidoctor.convert(input, backend: :sample, header_footer: true))).to be_equivalent_to output
     expect(File.exist?("test.html")).to be true
   end
 
@@ -82,7 +82,7 @@ RSpec.describe Asciidoctor::Sample do
       :security: Client Confidential
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     <?xml version="1.0" encoding="UTF-8"?>
 <sample-standard xmlns="https://open.ribose.com/standards/example">
 <bibdata type="standard">
@@ -133,11 +133,11 @@ RSpec.describe Asciidoctor::Sample do
 </sample-standard>
     OUTPUT
 
-    expect(Asciidoctor.convert(input, backend: :sample, header_footer: true)).to be_equivalent_to output
+    expect(xmlpp(Asciidoctor.convert(input, backend: :sample, header_footer: true))).to be_equivalent_to output
   end
 
       it "processes committee-draft" do
-    expect(Asciidoctor.convert(<<~"INPUT", backend: :sample, header_footer: true)).to be_equivalent_to <<~"OUTPUT"
+    expect(xmlpp(Asciidoctor.convert(<<~"INPUT", backend: :sample, header_footer: true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
       = Document title
       Author
       :docfile: test.adoc
@@ -199,7 +199,7 @@ RSpec.describe Asciidoctor::Sample do
     end
 
               it "processes draft-standard" do
-    expect(Asciidoctor.convert(<<~"INPUT", backend: :sample, header_footer: true)).to be_equivalent_to <<~"OUTPUT"
+    expect(xmlpp(Asciidoctor.convert(<<~"INPUT", backend: :sample, header_footer: true))).to be_equivalent_to xmlpp(<<~"OUTPUT")
       = Document title
       Author
       :docfile: test.adoc
@@ -260,7 +260,7 @@ OUTPUT
         end
 
                   it "ignores unrecognised status" do
-        expect(Asciidoctor.convert(<<~"INPUT", backend: :sample, header_footer: true)).to be_equivalent_to <<~'OUTPUT'
+        expect(xmlpp(Asciidoctor.convert(<<~"INPUT", backend: :sample, header_footer: true))).to be_equivalent_to <<~'OUTPUT'
       = Document title
       Author
       :docfile: test.adoc
@@ -330,7 +330,7 @@ OUTPUT
       == Section 1
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
     #{BLANK_HDR}
              <preface><foreword obligation="informative">
          <title>Foreword</title>
@@ -342,7 +342,7 @@ OUTPUT
        </sample-standard>
     OUTPUT
 
-    expect(strip_guid(Asciidoctor.convert(input, backend: :sample, header_footer: true))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :sample, header_footer: true)))).to be_equivalent_to output
   end
 
   it "uses default fonts" do
@@ -418,7 +418,7 @@ OUTPUT
       [smallcap]#smallcap#
     INPUT
 
-    output = <<~"OUTPUT"
+    output = xmlpp(<<~"OUTPUT")
             #{BLANK_HDR}
        <sections>
         <p id="_"><em>emphasis</em>
@@ -437,7 +437,7 @@ OUTPUT
        </sample-standard>
     OUTPUT
 
-    expect(strip_guid(Asciidoctor.convert(input, backend: :sample, header_footer: true))).to be_equivalent_to output
+    expect(xmlpp(strip_guid(Asciidoctor.convert(input, backend: :sample, header_footer: true)))).to be_equivalent_to output
   end
 
 

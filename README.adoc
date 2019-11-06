@@ -1,10 +1,14 @@
 = metanorma-sample: Sample Asciidoctor processor for Metanorma documents
 
-image:https://img.shields.io/travis/metanorma/metanorma-sample/master.svg["Build Status", link="https://travis-ci.org/metanorma/metanorma-sample"]
-image:https://ci.appveyor.com/api/projects/status/6ys17sr0buc7p3hi?svg=true["Appveyor Build Status", link="https://ci.appveyor.com/project/ribose/metanorma-sample"]
+image:https://img.shields.io/gem/v/metanorma-acme.svg["Gem Version", link="https://rubygems.org/gems/metanorma-acme"]
+image:https://travis-ci.com/metanorma/metanorma-sample.svg["Build Status", link="https://travis-ci.com/metanorma/metanorma-sample"]
+image:https://ci.appveyor.com/api/projects/status/k8092dp6r0g2fojv?svg=true["Appveyor Build Status", link="https://ci.appveyor.com/project/metanorma/metanorma-sample"]
+image:https://codeclimate.com/github/metanorma/metanorma-sample/badges/gpa.svg["Code Climate", link="https://codeclimate.com/github/metanorma/metanorma-sample"]
+image:https://img.shields.io/github/issues-pr-raw/metanorma/metanorma-sample.svg["Pull Requests", link="https://github.com/metanorma/metanorma-sample/pulls"]
+image:https://img.shields.io/github/commits-since/metanorma/metanorma-sample/latest.svg["Commits since latest",link="https://github.com/metanorma/metanorma-sample/releases"]
 
 == Functionality
 
 This is an example of a https://github.com/metanorma/metanorma[Metanorma] gem for processing input formats (Asciidoctor) and generating output formats (Word, HTML, PDF). 
-It has been created as an exemplar for generating new instances of Metanorma gems, as illustrated in https://github.com/metanorma/metanorma-iso/wiki/Gem-Customisation-Guide
+It has been created as an exemplar for generating new instances of Metanorma gems, as illustrated in https://www.metanorma.com/builder/howto/adopting-toolchain/
 
